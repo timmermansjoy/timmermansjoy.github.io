@@ -1,7 +1,11 @@
-.progress-bar{
-    background: linear-gradient(90deg, #a871ef 0%, #cf8bf3 51%, #fdb99b 100%) !important;
+.programming{
+    background: linear-gradient(90deg, #a871ef 0%, #cf8bf3 51%, #fdb99b 100%);
 }
 
 .progress{
-    background-color: rgb(29, 29, 29);
+    background-color: rgb(43, 43, 43);
+}
+
+.software{
+    background: linear-gradient(90deg, #c0103c 0%, #f08064 100%)
 }
