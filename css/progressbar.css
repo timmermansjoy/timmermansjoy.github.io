@@ -1,0 +1,7 @@
+.progress-bar{
+    background: linear-gradient(90deg, rgba(167,112,239,1) 0%, rgba(207,139,243,1) 51%, rgba(253,185,155,1) 100%) !important;
+}
+
+.progress{
+    background-color: rgb(29, 29, 29);
+}
