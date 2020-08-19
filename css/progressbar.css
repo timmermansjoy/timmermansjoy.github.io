@@ -1,11 +1,15 @@
-.programming{
-    background: linear-gradient(90deg, #a871ef 0%, #cf8bf3 51%, #fdb99b 100%);
+.programming {
+  background: linear-gradient(90deg, #a871ef 0%, #cf8bf3 40%, #fdb99b 100%);
 }
 
-.progress{
-    background-color: rgb(43, 43, 43);
+.progress {
+  background-color: rgb(40, 40, 40);
 }
 
-.software{
-    background: linear-gradient(90deg, #c0103c 0%, #f08064 100%)
+.software {
+  background: linear-gradient(90deg, #de193a 0%, #fd7d5d 100%);
+}
+
+.skills {
+  background: linear-gradient(90deg, #00c9ff 0%, #92fe9d 100%);
 }
