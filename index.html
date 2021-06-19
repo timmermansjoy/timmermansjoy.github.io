@@ -117,6 +117,12 @@
           <a href="#about" class="btn btn-primary js-scroll-trigger"
             >Get Started</a
           >
+          <a
+            href="/content/Eigen_CV.pdf"
+            download="Joy's cv"
+            class="btn btn-primary js-scroll-trigger"
+            >Download CV</a
+          >
         </div>
       </div>
     </header>
@@ -785,14 +791,14 @@
           <!-- <a href="https://twitter.com/Joytimmermans" class="mx-2">
             <i class="fab fa-twitter"></i>
           </a> -->
-          <a
-            href="https://www.linkedin.com/in/joy-timmermans-471537a4/"
-            class="mx-2"
-          >
+          <a href="https://www.linkedin.com/in/timmermansjoy" class="mx-2">
             <i class="fab fa-linkedin"></i>
           </a>
           <a href="https://github.com/timmermansjoy" class="mx-2">
             <i class="fab fa-github"></i>
+          </a>
+          <a href="content/Eigen_CV.pdf" download="Joy's cv" class="mx-2">
+            cv
           </a>
         </div>
       </div>
@@ -801,15 +807,7 @@
     <!-- Footer -->
     <footer class="bg-black small text-center text-white-50">
       <div class="container">
-        &copy;
-        <span id="copyright">
-          <script>
-            document
-              .getElementById("copyright")
-              .appendChild(document.createTextNode(new Date().getFullYear()));
-          </script>
-        </span>
-        Joy Timmermans
+        <span id="copyright"> &copy; </span>
       </div>
     </footer>
 
@@ -839,6 +837,14 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
       AOS.init();
+    </script>
+
+    <script>
+      document
+        .getElementById("copyright")
+        .appendChild(
+          document.createTextNode(new Date().getFullYear() + " Joy Timmermans")
+        );
     </script>
   </body>
 </html>
