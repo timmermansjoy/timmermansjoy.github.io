@@ -23,7 +23,7 @@
 #mainNav .navbar-brand {
   color: #161616;
   font-weight: 700;
-  padding: .9rem 0;
+  padding: 0.9rem 0;
 }
 
 #mainNav .navbar-nav .nav-item:hover {
@@ -32,7 +32,8 @@
   background-color: transparent;
 }
 
-#mainNav .navbar-nav .nav-item:active, #mainNav .navbar-nav .nav-item:focus {
+#mainNav .navbar-nav .nav-item:active,
+#mainNav .navbar-nav .nav-item:focus {
   outline: none;
   background-color: transparent;
 }
@@ -47,7 +48,7 @@
     transition: background-color 0.3s ease-in-out;
   }
   #mainNav .navbar-brand {
-    padding: .5rem 0;
+    padding: 0.5rem 0;
     color: rgba(255, 255, 255, 0.5);
   }
   #mainNav .nav-link {
@@ -101,7 +102,7 @@
 }
 
 .masthead h1 {
-  font-family: 'Varela Round';
+  font-family: "Varela Round";
   font-size: 2.5rem;
   line-height: 2.5rem;
   letter-spacing: 0.8rem;
@@ -142,10 +143,10 @@
   -webkit-box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
   box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
   padding: 1.25rem 2rem;
-  font-family: 'Varela Round';
+  font-family: "Varela Round";
   font-size: 80%;
   text-transform: uppercase;
-  letter-spacing: .15rem;
+  letter-spacing: 0.15rem;
   border: 0;
 }
 
@@ -202,7 +203,7 @@
   }
   .projects-section .project-text hr {
     border-color: #64a19d;
-    border-width: .25rem;
+    border-width: 0.25rem;
     width: 30%;
   }
 }
@@ -222,7 +223,7 @@
   box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
   padding: 1.25rem 2rem;
   height: auto;
-  font-family: 'Varela Round';
+  font-family: "Varela Round";
   font-size: 80%;
   text-transform: uppercase;
   letter-spacing: 0.15rem;
@@ -240,7 +241,7 @@
 
 .contact-section .card h4 {
   font-size: 0.8rem;
-  font-family: 'Varela Round';
+  font-family: "Varela Round";
   text-transform: uppercase;
   letter-spacing: 0.15rem;
 }
@@ -274,7 +275,7 @@
 }
 
 body {
-  font-family: 'Nunito';
+  font-family: "Nunito";
   letter-spacing: 0.0625em;
 }
 
@@ -282,7 +283,8 @@ a {
   color: #64a19d;
 }
 
-a:focus, a:hover {
+a:focus,
+a:hover {
   text-decoration: none;
   color: #3c6360;
 }
