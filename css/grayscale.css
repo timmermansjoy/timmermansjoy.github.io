@@ -16,6 +16,10 @@
   border: 1px solid #64a19d;
 }
 
+#logo {
+    height: 3em;
+}
+
 #mainNav .navbar-toggler:focus {
   outline: none;
 }
