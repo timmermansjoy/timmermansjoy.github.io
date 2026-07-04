@@ -1,0 +1,102 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Header from '../components/editorial/Header.astro';
+import Logo from '../components/shared/Logo.astro';
+import { profile } from '../data/profile';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description } = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  bodyClass="jt-editorial bg-[#f6efe1] text-[#211b12] dark:bg-[#17120b] dark:text-[#ece2cf] font-sans"
+>
+  <Header />
+
+  <script is:inline>
+    document.addEventListener(
+      'error',
+      (event) => {
+        const target = event.target;
+        if (!(target instanceof HTMLImageElement)) return;
+
+        const fallbackSrc = target.dataset.fallbackSrc;
+        if (!fallbackSrc) return;
+
+        const fallbackUrl = new URL(fallbackSrc, window.location.href).href;
+        if (target.currentSrc === fallbackUrl || target.src === fallbackUrl) return;
+
+        delete target.dataset.fallbackSrc;
+        target.src = fallbackSrc;
+      },
+      true
+    );
+  </script>
+
+  <main id="main" class="mx-auto max-w-6xl px-6">
+    <slot />
+  </main>
+
+  <footer class="mx-auto mt-20 max-w-6xl border-t border-[#d9cdb4] px-6 py-12 dark:border-[#3a3122]">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+      <div>
+        <a href="/" class="flex items-center gap-3">
+          <Logo size={28} alt={`${profile.name} home`} />
+          <p class="font-serif text-2xl italic">{profile.name}</p>
+        </a>
+        <p class="mt-1 pl-[40px] text-sm text-[#5a4e36] dark:text-[#b8a987]">{profile.title} · {profile.location}</p>
+      </div>
+      <div class="flex items-center gap-6 text-sm">
+        <a class="link-underline text-[#5a4e36] hover:text-[#8a3a14] dark:text-[#b8a987] dark:hover:text-[#e07a3e]" href="/about">About</a>
+        <a class="link-underline text-[#5a4e36] hover:text-[#8a3a14] dark:text-[#b8a987] dark:hover:text-[#e07a3e]" href="/blog">Blog</a>
+        <a class="link-underline text-[#5a4e36] hover:text-[#8a3a14] dark:text-[#b8a987] dark:hover:text-[#e07a3e]" href={profile.github}>GitHub</a>
+        <a class="link-underline text-[#5a4e36] hover:text-[#8a3a14] dark:text-[#b8a987] dark:hover:text-[#e07a3e]" href={profile.linkedin}>LinkedIn</a>
+        <a class="link-underline text-[#5a4e36] hover:text-[#8a3a14] dark:text-[#b8a987] dark:hover:text-[#e07a3e]" href={`mailto:${profile.email}`}>Email</a>
+      </div>
+    </div>
+    <p class="mt-8 text-xs text-[#9a8b6c] dark:text-[#7a6e55]">© {new Date().getFullYear()} {profile.name}. Set in Fraunces & Inter.</p>
+  </footer>
+</BaseLayout>
+
+<style is:global>
+  .jt-editorial { --ed-accent: #8a3a14; --ed-accent-dark: #e07a3e; }
+  .jt-editorial .font-serif { font-family: var(--font-serif); }
+</style>
+
+<noscript>
+  <style>
+    [data-reveal] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  </style>
+</noscript>
+
+<script>
+  // Reveal [data-reveal] elements as they scroll into view. Subtle + once-only.
+  const reveal = () => {
+    const els = document.querySelectorAll<HTMLElement>('[data-reveal]:not(.is-visible)');
+    if (!els.length) return;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced || !('IntersectionObserver' in window)) {
+      els.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
+    );
+    els.forEach((el) => io.observe(el));
+  };
+  if (document.readyState !== 'loading') reveal();
+  else document.addEventListener('DOMContentLoaded', reveal);
+</script>

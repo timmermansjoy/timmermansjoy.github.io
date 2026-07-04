@@ -1,0 +1,13 @@
+---
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import Hero from '../components/editorial/Hero.astro';
+import LatestWriting from '../components/editorial/LatestWriting.astro';
+import HomeAbout from '../components/editorial/HomeAbout.astro';
+import { SITE } from '../consts';
+---
+
+<EditorialLayout title={SITE.title} description={SITE.description}>
+  <Hero />
+  <LatestWriting />
+  <HomeAbout />
+</EditorialLayout>

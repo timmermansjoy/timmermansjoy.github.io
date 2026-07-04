@@ -1,0 +1,23 @@
+---
+/*
+  Inline script run synchronously in <head> to set the color mode before paint.
+  Prevents a flash of the wrong theme. Plain (non-module) script via is:inline.
+*/
+---
+
+<script is:inline>
+  (function () {
+    try {
+      var key = 'jt-theme';
+      var stored = localStorage.getItem(key);
+      var prefersDark =
+        window.matchMedia &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var mode = stored || (prefersDark ? 'dark' : 'light');
+      if (mode === 'dark') document.documentElement.classList.add('dark');
+      else document.documentElement.classList.remove('dark');
+    } catch (e) {
+      /* localStorage may be unavailable; fall back to OS preference via CSS. */
+    }
+  })();
+</script>

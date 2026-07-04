@@ -1,0 +1,37 @@
+---
+import EditorialLayout from '../layouts/EditorialLayout.astro';
+import About from '../components/editorial/About.astro';
+import Featured from '../components/editorial/Featured.astro';
+import Experience from '../components/editorial/Experience.astro';
+import Impact from '../components/editorial/Impact.astro';
+import PullQuote from '../components/editorial/PullQuote.astro';
+import Projects from '../components/editorial/Projects.astro';
+import Skills from '../components/editorial/Skills.astro';
+import Education from '../components/editorial/Education.astro';
+import Community from '../components/editorial/Community.astro';
+import Contact from '../components/editorial/Contact.astro';
+import { profile } from '../data/profile';
+import { SITE } from '../consts';
+---
+
+<EditorialLayout title={`About — ${profile.name}`} description={SITE.description}>
+  <header class="py-16 sm:py-20">
+    <a href="/" class="link-underline text-sm italic text-[#9a8b6c] hover:text-[#8a3a14] dark:text-[#7a6e55] dark:hover:text-[#e07a3e]">← Home</a>
+    <h1 class="mt-6 font-serif text-5xl font-light tracking-tight sm:text-6xl">About me</h1>
+    <p class="mt-3 max-w-xl text-[17px] leading-relaxed text-[#5a4e36] dark:text-[#b8a987]">
+      A slightly longer version of who I am, and what I've built.
+    </p>
+  </header>
+
+  <PullQuote />
+
+  <About />
+  <Featured />
+  <Experience />
+  <Education />
+  <Impact />
+  <Projects />
+  <Skills />
+  <Community />
+  <Contact />
+</EditorialLayout>

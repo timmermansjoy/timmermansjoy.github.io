@@ -1,0 +1,113 @@
+---
+/*
+  Renders the JT monogram as inline SVG. `trace` draws the outline before the
+  fill settles in, used sparingly for the homepage hero.
+*/
+interface Props {
+  size?: number;
+  class?: string;
+  /** decorative by default; pass an aria-label via `alt` to make it meaningful */
+  alt?: string;
+  trace?: boolean;
+}
+const { size = 40, class: className, alt, trace = false } = Astro.props;
+
+const role = alt ? 'img' : 'presentation';
+const ariaLabel = alt;
+const ariaHidden = alt ? undefined : 'true';
+---
+
+<span
+  class:list={['jt-logo inline-block text-[#211b12] dark:text-[#ece2cf]', trace && 'jt-logo-trace', className]}
+  style={`width:${size}px;height:${size}px`}
+  role={role}
+  aria-label={ariaLabel}
+  aria-hidden={ariaHidden}
+>
+  <svg width={size} height={size} viewBox="0 0 882 882" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-full w-full overflow-visible">
+    {
+      trace && (
+        <g class="jt-logo-outline" fill="none" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+          {/* Main vertical stem + right arm */}
+          <path class="jt-logo-stroke jt-logo-stroke--stem" pathLength="1" d="M250 161.165H499.964C505.893 160.308 512.093 162.121 516.571 166.667L626.463 278.234C633.905 285.79 646.093 285.79 653.535 278.234L763.429 166.667C770.832 159.151 782.94 159.106 790.399 166.565L876.666 252.831C884.046 260.211 884.092 272.164 876.768 279.6L745.464 412.903C741.963 416.458 740 421.247 740 426.236V722.165C740 732.658 731.493 741.165 721 741.165H559C548.507 741.165 540 732.658 540 722.165L539.999 426.236C539.999 421.247 538.036 416.458 534.535 412.903C521.98 400.157 500 408.756 500 426.647V506.164C500 506.165 500 506.165 499.999 506.165C499.998 506.165 499.998 506.165 499.998 506.166" />
+          {/* Left arc / loop */}
+          <path class="jt-logo-stroke jt-logo-stroke--arc" pathLength="1" d="M499.998 506.166C499.759 635.991 387.922 741.165 249.999 741.165C119.241 741.165 11.9298 646.635 0.92889 526.189C-0.077093 515.175 8.97676 506.165 20.0368 506.165H230C241.046 506.165 250 497.211 250 486.165V161.165" />
+          {/* Circle / dot */}
+          <circle class="jt-logo-stroke jt-logo-stroke--dot" pathLength="1" cx="120" cy="316.165" r="120" />
+        </g>
+      )
+    }
+    <path class="jt-logo-fill" d="M763.429 146.667C770.832 139.151 782.94 139.106 790.399 146.565L876.666 232.831C884.046 240.211 884.092 252.164 876.768 259.6L745.464 392.903C741.963 396.458 740 401.247 740 406.236V722.165C740 732.658 731.493 741.165 721 741.165H559C548.507 741.165 540 732.658 540 722.165L539.999 406.236C539.999 401.247 538.036 396.458 534.535 392.903C521.98 380.157 500 388.756 500 406.647V506.164C500 506.165 500 506.165 499.999 506.165C499.998 506.165 499.998 506.165 499.998 506.166C499.759 635.991 387.922 741.165 249.999 741.165C119.241 741.165 11.9298 646.635 0.92889 526.189C-0.077093 515.175 8.97676 506.165 20.0368 506.165H230C241.046 506.165 250 497.211 250 486.165V161.165C250 150.119 258.954 141.165 270 141.165H499.964C499.984 141.165 500 141.181 500 141.201C500 141.223 500.02 141.24 500.042 141.237C505.893 140.308 512.093 142.121 516.571 146.667L626.463 258.234C633.905 265.79 646.093 265.79 653.535 258.234L763.429 146.667ZM120 196.165C186.274 196.165 240 249.891 240 316.165C240 382.439 186.274 436.165 120 436.165C53.7258 436.165 0 382.439 0 316.165C0 249.891 53.7258 196.165 120 196.165Z" />
+  </svg>
+</span>
+
+<style>
+  .jt-logo {
+    position: relative;
+    display: inline-block;
+    line-height: 0;
+  }
+  .jt-logo-fill {
+    fill: currentColor;
+  }
+
+  .jt-logo-trace .jt-logo-fill {
+    animation: jt-logo-fill-in 720ms cubic-bezier(0.22, 1, 0.36, 1) 420ms forwards;
+    opacity: 0;
+  }
+
+  .jt-logo-stroke {
+    animation: jt-logo-trace 900ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    stroke: #8a3a14;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+
+  :global(.dark) .jt-logo-stroke {
+    stroke: #e07a3e;
+  }
+
+  .jt-logo-stroke--stem {
+    animation-delay: 0ms;
+  }
+
+  .jt-logo-stroke--arc {
+    animation-delay: 100ms;
+  }
+
+  .jt-logo-stroke--dot {
+    animation-delay: 220ms;
+  }
+
+  @keyframes jt-logo-trace {
+    0% {
+      opacity: 0.9;
+      stroke-dashoffset: 1;
+    }
+    70% {
+      opacity: 0.75;
+    }
+    100% {
+      opacity: 0;
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes jt-logo-fill-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .jt-logo-outline,
+    .jt-logo-stroke {
+      animation: none;
+      opacity: 0;
+    }
+
+    .jt-logo-trace .jt-logo-fill {
+      animation: none;
+      opacity: 1;
+    }
+  }
+</style>

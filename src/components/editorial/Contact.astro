@@ -1,0 +1,16 @@
+---
+import Section from './Section.astro';
+import { profile } from '../../data/profile';
+---
+
+<Section id="contact" title="Contact" index="08">
+  <p class="text-[17px] leading-relaxed text-[#3a3122] dark:text-[#cfc2a7]">
+    If you want to talk about computer vision, edge AI, weird datasets, or a project
+    that might be fun to untangle, email is the easiest way to reach me.
+  </p>
+  <div class="mt-7 space-y-2 text-[16px]">
+    <a class="link-underline block w-fit font-serif text-xl text-[#211b12] hover:text-[#8a3a14] dark:text-[#ece2cf] dark:hover:text-[#e07a3e]" href={`mailto:${profile.email}`}>{profile.email}</a>
+    <a class="link-underline block w-fit text-[#5a4e36] hover:text-[#8a3a14] dark:text-[#b8a987] dark:hover:text-[#e07a3e]" href={profile.github}>GitHub — @timmermansjoy</a>
+    <a class="link-underline block w-fit text-[#5a4e36] hover:text-[#8a3a14] dark:text-[#b8a987] dark:hover:text-[#e07a3e]" href={profile.linkedin}>LinkedIn — /in/timmermansjoy</a>
+  </div>
+</Section>

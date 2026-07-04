@@ -1,0 +1,24 @@
+---
+import Section from './Section.astro';
+import { skills } from '../../data/skills';
+---
+
+<Section id="skills" title="Stack" index="05">
+  <dl class="divide-y divide-[#e3d9c0] dark:divide-[#2e281d]">
+    {
+      skills.map((group) => (
+        <div class="grid grid-cols-1 gap-x-8 gap-y-2 py-4 sm:grid-cols-[11rem_1fr]">
+          <dt class="font-serif text-lg italic text-[#5a4e36] dark:text-[#b8a987]">{group.label}</dt>
+          <dd class="flex flex-wrap gap-x-2 gap-y-1.5 text-[16px] text-[#3a3122] dark:text-[#cfc2a7]">
+            {group.items.map((item, i) => (
+              <span>
+                {item}
+                {i < group.items.length - 1 && <span class="text-[#c9bd9f] dark:text-[#4a4030]">,</span>}
+              </span>
+            ))}
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+</Section>

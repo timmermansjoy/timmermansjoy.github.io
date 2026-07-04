@@ -1,0 +1,85 @@
+---
+import '../styles/global.css';
+import ThemeInit from '../components/shared/ThemeInit.astro';
+import { SITE } from '../consts';
+import { profile } from '../data/profile';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** path to an OG image under /public, optional */
+  ogImage?: string;
+  /** body class hook for theme layouts */
+  bodyClass?: string;
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+  ogImage = '/logo-black.svg',
+  bodyClass,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? SITE.url).href;
+const ogImageUrl = new URL(ogImage, Astro.site ?? SITE.url).href;
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  jobTitle: profile.title,
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: profile.location,
+    addressCountry: 'BE',
+  },
+  url: canonical,
+  sameAs: [profile.linkedin, profile.github],
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta name="author" content={profile.name} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={profile.name} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:locale" content="en" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageUrl} />
+
+    <meta name="theme-color" content="#fafafa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)" />
+
+    <script
+      is:inline
+      type="application/ld+json"
+      set:html={JSON.stringify(personJsonLd)}
+    />
+
+    <ThemeInit />
+  </head>
+  <body class={bodyClass}>
+    <a href="#main" class="skip-link">Skip to content</a>
+    <slot />
+  </body>
+</html>

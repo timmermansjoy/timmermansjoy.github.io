@@ -1,0 +1,41 @@
+---
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import { getCollection } from 'astro:content';
+import Section from '../../components/editorial/Section.astro';
+
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<EditorialLayout title="Blog — Joy Timmermans" description="My personal Stories and Notes on computer vision, edge-AI, MLOps, data-centric ML and buisness.">
+  <section class="py-20">
+    <p class="text-xs uppercase tracking-[0.2em] text-[#9a8b6c] dark:text-[#7a6e55]">Blog</p>
+    <h1 class="mt-4 font-serif text-5xl font-light tracking-tight sm:text-6xl">Blog</h1>
+    <p class="mt-4 max-w-xl text-[17px] leading-relaxed text-[#5a4e36] dark:text-[#b8a987]">
+      My personal Stories and Notes on computer vision, edge-AI, MLOps, data-centric ML and buisness.
+    </p>
+  </section>
+
+  <Section id="posts" title="Posts" index="01">
+    <ul class="space-y-8">
+      {posts.length === 0 && (
+        <li class="text-sm italic text-[#9a8b6c] dark:text-[#7a6e55]">No posts yet.</li>
+      )}
+      {posts.map((post, i) => (
+        <li data-reveal style={`--reveal-delay: ${i * 80}ms`}>
+          <a href={`/blog/${post.id.replace(/\.mdx?$/, '')}/`} class="group block">
+            <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+              <h3 class="font-serif text-2xl tracking-tight group-hover:text-[#8a3a14] dark:group-hover:text-[#e07a3e]">{post.data.title}</h3>
+              <time class="text-sm italic text-[#9a8b6c] dark:text-[#7a6e55]" datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+            </div>
+            <p class="mt-1.5 max-w-2xl text-[16px] leading-relaxed text-[#5a4e36] dark:text-[#b8a987]">{post.data.description}</p>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </Section>
+</EditorialLayout>

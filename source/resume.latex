@@ -1,0 +1,362 @@
+%-------------------------
+% Resume in LaTeX
+% Joy Timmermans
+%-------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage[none]{hyphenat}
+\usepackage[
+  colorlinks=true,
+  linkcolor=RoyalBlue,
+  urlcolor=RoyalBlue,
+  citecolor=RoyalBlue
+]{hyperref}
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.375in}
+\addtolength{\evensidemargin}{-0.375in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+% Keep complete words together where possible.
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+\setlength{\emergencystretch}{1.7em}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Section formatting
+\titleformat{\section}{
+  \vspace{-3pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+%-------------------------
+% Custom commands
+
+\newcommand{\resumelink}[2]{%
+  \href{#1}{\textcolor{RoyalBlue}{{#2}}}%
+}
+
+\newcommand{\resumeItem}[2]{
+  \item\small{
+    \textbf{#1}: #2 \vspace{-2pt}
+  }
+}
+
+\newcommand{\resumeClient}[2]{
+  \item\small{
+    \textbf{#1}: #2
+  }
+}
+
+\newcommand{\resumeClientDetailsStart}{
+  \begin{itemize}[leftmargin=0.35in,itemsep=1pt,topsep=2pt]
+}
+
+\newcommand{\resumeClientDetailsEnd}{
+  \end{itemize}\vspace{2pt}
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{5pt}\item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small #3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-3pt}
+}
+
+\newcommand{\resumeSubItem}[2]{
+  \resumeItem{#1}{#2}\vspace{-4pt}
+}
+
+\renewcommand{\labelitemii}{$\circ$}
+
+\newcommand{\resumeSubHeadingListStart}{
+  \begin{itemize}[leftmargin=0in,label={}]
+}
+
+\newcommand{\resumeSubHeadingListEnd}{
+  \end{itemize}
+}
+
+\newcommand{\resumeItemListStart}{
+  \begin{itemize}[leftmargin=0.18in]
+}
+
+\newcommand{\resumeItemListEnd}{
+  \end{itemize}\vspace{-0.5pt}
+}
+
+%-------------------------------------------
+%%%%%% CV STARTS HERE %%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING-----------------
+
+\begin{center}
+  {\Huge \scshape \textbf{Joy Timmermans}} \\ \vspace{2pt}
+  \small
+  AI \& Computer Vision Engineer \\ \vspace{3pt}
+  Hasselt, Belgium \ $|$ \
+  \resumelink{mailto:joy.timmermans@leftfields.be}{joy.timmermans@leftfields.be} \ $|$ \
+  %\resumelink{mailto:timmermansjoy@gmail.com}{timmermansjoy@gmail.com} \ $|$ \
+  \resumelink{https://www.linkedin.com/in/timmermansjoy}{linkedin} \ $|$ \
+  \resumelink{https://github.com/timmermansjoy}{github}
+\end{center}
+
+%-----------SUMMARY-----------------
+
+\section{Professional Summary}
+
+\small{
+Machine Learning Engineer with 4+ years of experience delivering computer-vision, data-platform, and edge-AI systems from prototype through production. Built systems that reduced false positives by 30\%, cut cloud costs by 15\%, improved real-time inference speed by 2.5$\times$, and removed manual device-provisioning work at scale. Strong in data-centric AI, embedded development, MLOps, and turning technically difficult requirements into working production systems.
+}
+
+%-----------EXPERIENCE-----------------
+
+\section{Experience}
+
+\resumeSubHeadingListStart
+
+  \resumeSubheading
+    {LeftFields}{Hasselt, Belgium}
+    {AI Engineer}{February 2026 -- Present}
+    \resumeItemListStart
+
+      \resumeClient{\resumelink{https://www.rematics.be/}{Rematics}}
+        {Owned work across dataset workflows, training infrastructure, and secure edge-AI deployment.}
+      \resumeClientDetailsStart
+        \item Built source-to-data-lake workflows that reduced dataset preparation from days or even weeks to hours.
+        \item Used a hardware security chip to create a fully unsupervised privisioning system, eliminating 30--40 minutes of manual setup per device easily saving 8000 hours a year.
+        \item Improved deployment reliability across Yocto-based operating systems and NVIDIA DeepStream pipelines.
+      \resumeClientDetailsEnd
+
+      \resumeClient{\resumelink{https://www.daymaker.travel/en}{Daymaker}}
+        {Built the product-usage reporting layer used to make traffic and adoption data actionable.}
+      \resumeClientDetailsStart
+        \item Designed and built an analytics dashboard covering user traffic, product usage, and key behavioural flows.
+        \item Turned scattered product data into reporting views that supported day-to-day product and operational decisions.
+      \resumeClientDetailsEnd
+
+      \resumeClient{\resumelink{https://rapidfit.com/}{RapidFit}}
+        {Audited and redesigned internal workflows across quotation and operation systems.}
+      \resumeClientDetailsStart
+        \item Mapped existing business and engineering processes to identify bottlenecks, manual work, and tooling gaps.
+        \item Proposed process changes that reduced selected business-process turnaround times by up to 60\%.
+      \resumeClientDetailsEnd
+
+    \resumeItemListEnd
+
+  \resumeSubheading
+    {Padelize}{Hasselt, Belgium}
+    {CTO}{July 2026 -- Present}
+    \resumeItemListStart
+
+      \resumeItem{Technical ownership}
+        {Own the architecture and technical direction for the mobile application, cloud infrastructure, AI services, and deployment pipeline.}
+
+      \resumeItem{Computer vision systems}
+        {Lead development of temporal models, field detection, tracking, and homography-based player projection for padel analysis.}
+
+      \resumeItem{Model performance}
+        {Reworked the field-detection pipeline from unusable output to 90\% accuracy while reaching 2.4$\times$ real-time inference speed.}
+
+      \resumeItem{Data quality}
+        {Set annotation standards, review dataset quality, and run feedback loops from model failures back into labelling and training.}
+
+      \resumeItem{Delivery}
+        {Set technical priorities, convert product requirements into implementation milestones, and unblock engineering delivery across the team.}
+
+    \resumeItemListEnd
+
+  \resumeSubheading
+    {Secury360}{Zonhoven, Belgium}
+    {Machine Learning Engineer}{August 2022 -- February 2026}
+    \resumeItemListStart
+
+      \resumeItem{Computer-vision data platform}
+        {Designed and maintained FiftyOne-based pipelines for multi-million-sample datasets, supporting dataset inspection, curation, and model iteration.}
+
+      \resumeItem{False-positive reduction}
+        {Applied data-centric AI methods to improve dataset quality and reduce false positives by 30\%.}
+
+      \resumeItem{Temporal vision modelling}
+        {Developed a preprocessing method that encoded temporal information into stationary image representations for downstream vision models. Increasing the model accuracy while reducding the false postive rate by 40\% }
+
+      \resumeItem{Cloud-cost reduction}
+        {Built Azure-based AI filtering logic that reduced monthly cloud costs by 15\%.}
+
+      \resumeItem{Production edge systems}
+        {Owned Linux-based edge-device software for connectivity, health monitoring, displaying information and reliable deployment in production environments.}
+
+    \resumeItemListEnd
+
+  \resumeSubheading
+    {PXL Research}{Hasselt, Belgium}
+    {Intern Researcher --- Time Series \& Edge AI}{February 2022 -- July 2022}
+    \resumeItemListStart
+
+      \resumeItem{\resumelink{https://digitalenergy.pxl.be/}{Digital Energy}}
+        {Contributed to industrial energy-optimisation research focused on predictive maintenance and real-time monitoring.}
+
+      \resumeItem{Forecasting models}
+        {Built multivariate time-series models that forecast 24-hour power consumption with 85\% accuracy.}
+
+      \resumeItem{Edge constraints}
+        {Evaluated edge-deployment limitations for real-time, sensor-driven industrial energy management.}
+
+    \resumeItemListEnd
+
+  \resumeSubheading
+    {PXL Smart-ICT}{Hasselt, Belgium}
+    {React Native Developer}{July 2020 -- May 2021}
+    \resumeItemListStart
+
+      \resumeItem{Healthcare communication platform}
+        {Built a React Native application that streamlined communication between healthcare institutions and workers.}
+
+    \resumeItemListEnd
+
+  \resumeSubheading
+    {NYBE}{Hasselt, Belgium}
+    {Junior Developer}{May 2022 -- July 2022}
+    \resumeItemListStart
+
+      \resumeItem{Web development}
+        {Contributed to scalable Laravel applications and production web-development workflows.}
+
+    \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------EDUCATION-----------------
+
+\section{Education}
+
+\resumeSubHeadingListStart
+
+  \resumeSubheading
+    {Woolf University}{Remote}
+    {Master of Science in Artificial Intelligence}{2026 -- Expected 2027}
+    \resumeItemListStart
+      \resumeItem{Focus areas}
+        {Computer Vision, Machine Learning, Agentic AI, Statistics for Data Analysis.}
+    \resumeItemListEnd
+
+
+
+  \resumeSubheading
+    {PXL University of Applied Sciences and Arts}{Hasselt, Belgium}
+    {Bachelor of Applied Computer Science --- AI \& Robotics}{2019 -- 2022}
+    \resumeItemListStart
+
+      \resumeItem{Honors}
+        {Graduated with Honors}
+
+      \resumeItem{Relevant coursework}
+        {Machine Learning, Robotics and Path Planning, Big Data, Large Language Models, and Time Series Analysis.}
+
+    \resumeItemListEnd
+
+\resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------------
+
+\section{Selected Projects}
+
+\resumeSubHeadingListStart
+
+  \resumeSubItem{Self-Driving Bot --- Robotics \& Optimisation}
+    {Built a ROS-based autonomous robot using neural networks for lateral control, sensor processing, real-time inference, and path optimisation. Earned the first perfect score, 20/20, in the course history. \resumelink{https://github.com/timmermansjoy/Turtlebot}{GitHub repository}.}
+
+  \resumeSubItem{Chess Assistant --- Computer Vision}
+    {Built a computer-vision system that recognises chessboard states and recommends moves through a self-developed chess engine. \resumelink{https://github.com/timmermansjoy/Chess-assistant}{GitHub repository}.}
+
+\resumeSubHeadingListEnd
+
+%-----------OPEN SOURCE-----------------
+
+\section{Open Source \& Community}
+
+\resumeSubHeadingListStart
+
+  \resumeSubItem{FiftyOne Community}
+    {Helped setup the Voxel51 community Discord server and built a custom bot that automated community interactions. \resumelink{https://github.com/voxel51/VoxelBot}{GitHub repository}.}
+
+  \resumeSubItem{FiftyOne Contributions}
+    {Contributed PyTorch device flexibility and CVAT organisation support to FiftyOne, improving device compatibility and enterprise annotation workflows. \resumelink{https://github.com/voxel51/fiftyone/pull/2843}{PR \#2843}; \resumelink{https://github.com/voxel51/fiftyone/pull/2716}{PR \#2716}.}
+
+  \resumeSubItem{Speaking}
+    {Selected as one of four speakers at the \resumelink{https://www.linkedin.com/posts/timmermansjoy_the-inaugural-brussels-meetup-was-a-massive-activity-7351136163765641216-z4qQ}{Brussels AI Meetup}.}
+
+\resumeSubHeadingListEnd
+
+%-----------SKILLS-----------------
+
+\section{Technical Skills}
+
+\resumeSubHeadingListStart
+
+  \item \small{
+    \textbf{Languages:} Python, JavaScript, C, C++, C\#, Java, Kotlin
+  }
+
+  \item \small{
+    \textbf{AI \& CV:} PyTorch, TensorFlow, Tinygrad, FiftyOne, Weights \& Biases, Pandas, CVAT, Ultralytics, Roboflow
+  }
+
+  \item \small{
+    \textbf{LLMs \& Agentic AI:} RAG, LangChain, LangGraph, MCP, LlamaIndex, Ollama, Hugging Face, Qdrant, Whisper
+  }
+
+  \item \small{
+    \textbf{Edge \& Inference:} ONNX, TensorRT, DeepStream, ROS 2, Yocto, Embedded Linux
+  }
+
+  \item \small{
+    \textbf{Video \& Streaming:} OpenCV, FFmpeg, GStreamer
+  }
+
+  \item \small{
+    \textbf{Engineering \& Cloud:} AWS, Azure, Docker, Git, Bash, GitHub Actions, FastAPI, Django, React Native, Laravel, SQLite, MongoDB
+  }
+
+  \item \small{
+    \textbf{Other:} Unity, Gazebo, \LaTeX, Figma
+  }
+
+\resumeSubHeadingListEnd
+
+%-----------LANGUAGES-----------------
+
+\section{Languages}
+
+\resumeSubHeadingListStart
+
+  \item \small{\textbf{Dutch:} Native}
+  \item \small{\textbf{English:} Fluent}
+  \item \small{\textbf{French:} Elementary}
+
+\resumeSubHeadingListEnd
+
+\end{document}

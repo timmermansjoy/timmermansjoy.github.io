@@ -1,0 +1,19 @@
+---
+import Section from './Section.astro';
+import { profile } from '../../data/profile';
+---
+
+<Section id="about" title="About" index="02">
+  <div class="space-y-5 text-[17px] leading-relaxed text-[#3a3122] dark:text-[#cfc2a7]">
+    <p>
+      I'm an {profile.title.toLowerCase()} based in {profile.location}. Most days I'm somewhere between computer vision, edge devices, messy datasets, and asking why the camera is mounted like that.
+    </p>
+    <p class="italic text-[#5a4e36] dark:text-[#b8a987]">
+      I believe the best solution is often the smallest one — contained, boring, and easy to reason about. I work at LeftFields, help build Padelize as fractional CTO, and write here when something was annoying, interesting, or useful enough to remember.
+    </p>
+    <a href="/about" class="link-underline group inline-flex items-center gap-1.5 text-sm font-medium text-[#8a3a14] dark:text-[#e07a3e]">
+      More about me
+      <span class="transition-transform duration-200 group-hover:translate-x-0.5">→</span>
+    </a>
+  </div>
+</Section>

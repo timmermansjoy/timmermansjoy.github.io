@@ -1,0 +1,219 @@
+---
+import EditorialLayout from '../../layouts/EditorialLayout.astro';
+import { getCollection, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.mdx?$/, '') },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const fmt = (d: Date) => d.toLocaleDateString('en', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<EditorialLayout title={`${post.data.title} — Joy Timmermans`} description={post.data.description}>
+  <article class="py-20">
+    <a href="/blog/" class="link-underline text-sm italic text-[#9a8b6c] hover:text-[#8a3a14] dark:text-[#7a6e55] dark:hover:text-[#e07a3e]">← Back to posts</a>
+    <h1 class="mt-6 max-w-3xl font-serif text-4xl font-light leading-tight tracking-tight sm:text-5xl" data-reveal style="--reveal-delay: 80ms">{post.data.title}</h1>
+    <div class="mt-4 flex items-center gap-3 text-sm text-[#9a8b6c] dark:text-[#7a6e55]">
+      <time datetime={post.data.pubDate.toISOString()}>{fmt(post.data.pubDate)}</time>
+      {post.data.tags.length > 0 && (
+        <span class="text-[#c9bd9f] dark:text-[#4a4030]">·</span>
+        <ul class="flex gap-2 italic">{post.data.tags.map((t) => <li>#{t}</li>)}</ul>
+      )}
+    </div>
+    <div class="prose-editorial mt-12 max-w-2xl text-[17px] leading-relaxed text-[#3a3122] dark:text-[#cfc2a7]">
+      <Content />
+    </div>
+  </article>
+
+  <dialog id="image-zoom" class="image-zoom-dialog">
+    <button class="image-zoom-close" type="button" aria-label="Close image preview">×</button>
+    <img alt="" class="image-zoom-img" />
+    <p class="image-zoom-caption"></p>
+  </dialog>
+</EditorialLayout>
+
+<style is:global>
+  .prose-editorial :where(h2) { font-family: var(--font-serif); font-size: 1.6rem; font-weight: 400; margin-top: 2.5rem; margin-bottom: 0.75rem; letter-spacing: -0.01em; }
+  .prose-editorial :where(h3) { font-family: var(--font-serif); font-size: 1.25rem; font-weight: 500; margin-top: 1.75rem; margin-bottom: 0.5rem; }
+  .prose-editorial :where(p) { margin-top: 1rem; margin-bottom: 1rem; }
+  .prose-editorial :where(ul) { margin-top: 1rem; margin-bottom: 1rem; padding-left: 1.4rem; list-style: none; }
+  .prose-editorial :where(ol) { margin-top: 1rem; margin-bottom: 1rem; padding-left: 1.4rem; list-style: decimal; }
+  .prose-editorial :where(li) { margin-top: 0.4rem; position: relative; }
+  .prose-editorial :where(ul > li)::before { content: '—'; position: absolute; margin-left: -1.4rem; color: var(--ed-accent); }
+  .prose-editorial :where(a) { color: var(--ed-accent); text-decoration: underline; text-underline-offset: 3px; }
+  :global(.dark) .prose-editorial :where(a) { color: var(--ed-accent-dark); }
+  .prose-editorial :where(code) { font-family: var(--font-mono); font-size: 0.85em; }
+  .prose-editorial :where(pre) { margin-top: 1.25rem; margin-bottom: 1.25rem; padding: 1rem 1.25rem; border-left: 2px solid var(--ed-accent); background: rgba(0,0,0,0.04); overflow-x: auto; }
+  :global(.dark) .prose-editorial :where(pre) { background: rgba(255,255,255,0.04); }
+  .prose-editorial :where(blockquote) { margin-top: 1.25rem; margin-bottom: 1.25rem; padding-left: 1.25rem; border-left: 2px solid var(--ed-accent); font-family: var(--font-serif); font-style: italic; }
+  .prose-editorial :where(img) { cursor: zoom-in; border: 1px solid #d9cdb4; border-radius: 0.375rem; transition: opacity 0.2s ease, transform 0.2s ease; }
+  .prose-editorial :where(img:hover) { opacity: 0.9; transform: translateY(-1px); }
+  :global(.dark) .prose-editorial :where(img) { border-color: #3a3122; }
+
+  .image-zoom-dialog {
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: #ece2cf;
+  }
+  .image-zoom-dialog[open] {
+    display: grid;
+    place-items: center;
+  }
+  .image-zoom-dialog::backdrop { background: rgba(23, 18, 11, 0.86); backdrop-filter: blur(8px); }
+  .image-zoom-img {
+    display: block;
+    max-width: min(94vw, 1200px);
+    max-height: 84dvh;
+    border-radius: 0.375rem;
+    object-fit: contain;
+    transform-origin: center;
+  }
+  .image-zoom-dialog[open] .image-zoom-img { animation: image-zoom-in 180ms cubic-bezier(0.22, 1, 0.36, 1) both; }
+  .image-zoom-dialog.is-closing .image-zoom-img { animation: image-zoom-out 140ms ease-in both; }
+  .image-zoom-dialog.is-closing::backdrop { animation: image-backdrop-out 140ms ease-in both; }
+  .image-zoom-caption { margin: 0.75rem auto 0; max-width: min(90vw, 48rem); text-align: center; font-size: 0.875rem; color: #cfc2a7; }
+  .image-zoom-caption:empty { display: none; }
+  .image-zoom-close {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    display: inline-flex;
+    height: 2.5rem;
+    width: 2.5rem;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(236, 226, 207, 0.35);
+    border-radius: 999px;
+    background: rgba(23, 18, 11, 0.65);
+    color: #ece2cf;
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+  .image-zoom-close:hover,
+  .image-zoom-close:focus-visible { border-color: #e07a3e; color: #e07a3e; }
+
+  @keyframes image-zoom-in {
+    from { opacity: 0; transform: scale(0.94); }
+    to { opacity: 1; transform: scale(1); }
+  }
+  @keyframes image-zoom-out {
+    from { opacity: 1; transform: scale(1); }
+    to { opacity: 0; transform: scale(0.96); }
+  }
+  @keyframes image-backdrop-out {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .image-zoom-dialog[open] .image-zoom-img,
+    .image-zoom-dialog.is-closing .image-zoom-img,
+    .image-zoom-dialog.is-closing::backdrop { animation: none; }
+  }
+
+  /* ponytail: reading-progress bar — delete this block and the progress-bar section in <script> to remove */
+  .progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--ed-accent, #8a3a14);
+    z-index: 60;
+    width: 0;
+    transition: width 100ms linear;
+  }
+  :global(.dark) .progress-bar {
+    background: var(--ed-accent-dark, #e07a3e);
+  }
+</style>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('#image-zoom');
+  const zoomedImg = dialog?.querySelector<HTMLImageElement>('.image-zoom-img');
+  const caption = dialog?.querySelector<HTMLParagraphElement>('.image-zoom-caption');
+  const close = dialog?.querySelector<HTMLButtonElement>('.image-zoom-close');
+  let closeTimer: number | undefined;
+
+  const closeImage = () => {
+    if (!dialog || !dialog.open || dialog.classList.contains('is-closing')) return;
+    dialog.classList.add('is-closing');
+    closeTimer = window.setTimeout(() => dialog.close(), 140);
+  };
+
+  const openImage = (img: HTMLImageElement) => {
+    if (!dialog || !zoomedImg || !caption) return;
+    window.clearTimeout(closeTimer);
+    dialog.classList.remove('is-closing');
+    zoomedImg.src = img.currentSrc || img.src;
+    zoomedImg.alt = img.alt;
+    caption.textContent = img.alt;
+    dialog.showModal();
+    close?.focus();
+  };
+
+  document.querySelectorAll<HTMLImageElement>('.prose-editorial img').forEach((img) => {
+    img.tabIndex = 0;
+    img.setAttribute('role', 'button');
+    img.setAttribute('title', 'Click to enlarge');
+    img.addEventListener('click', () => openImage(img));
+    img.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openImage(img);
+      }
+    });
+  });
+
+  close?.addEventListener('click', closeImage);
+  dialog?.addEventListener('click', (event) => {
+    if (event.target === dialog) closeImage();
+  });
+  dialog?.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    closeImage();
+  });
+  dialog?.addEventListener('close', () => {
+    if (!zoomedImg || !caption) return;
+    window.clearTimeout(closeTimer);
+    dialog.classList.remove('is-closing');
+    zoomedImg.removeAttribute('src');
+    caption.textContent = '';
+  });
+
+  // ponytail: reading-progress bar — delete this block and the .progress-bar style to remove
+  (function() {
+    const article = document.querySelector('article');
+    if (!article) return;
+    const bar = document.createElement('div');
+    bar.className = 'progress-bar';
+    document.body.prepend(bar);
+    let ticking = false;
+    const update = () => {
+      const { top, height } = article.getBoundingClientRect();
+      const scrollable = height - window.innerHeight;
+      const p = scrollable > 0 ? Math.min(1, Math.max(0, -top / scrollable)) : 0;
+      bar.style.width = `${p * 100}vw`;
+    };
+    addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => { update(); ticking = false; });
+        ticking = true;
+      }
+    }, { passive: true });
+    update();
+  })();
+</script>
+

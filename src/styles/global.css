@@ -1,0 +1,120 @@
+@import 'tailwindcss';
+
+/* Self-hosted variable fonts. */
+@import '@fontsource-variable/inter';
+@import '@fontsource-variable/fraunces';
+
+/*
+  Class-based dark mode. `dark:` utilities apply when `.dark` is on <html>.
+  Toggle is controlled by ThemeToggle / ThemeInit (also respects OS preference).
+*/
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, -apple-system,
+    'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: 'Fraunces Variable', ui-serif, Georgia, Cambria,
+    'Times New Roman', serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', 'Fira Code', Menlo,
+    Consolas, monospace;
+}
+
+/*
+  Fraunces variable axes: subtle optical sizing + softness for the serif.
+  `wght` stays driven by Tailwind's font-weight utilities.
+*/
+.font-serif {
+  font-variation-settings: 'opsz' 96, 'SOFT' 30;
+}
+
+/* Respect users who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Scroll offset so anchored sections aren't hidden under sticky headers. */
+:target {
+  scroll-margin-top: 6rem;
+}
+
+/* Thin, restrained focus ring that works on any theme. */
+:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Skip link for keyboard users. */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 100;
+  transition: top 0.15s ease;
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/*
+  Subtle scroll reveal. Elements with [data-reveal] start faded + nudged down,
+  and transition to their resting state when .is-visible is added by the
+  IntersectionObserver in EditorialLayout. Stagger via --reveal-delay.
+  Reduced-motion users get the global override above (transitions ~0ms).
+*/
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Links should read as links before hover, then sharpen on interaction. */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0% 100%;
+  background-repeat: no-repeat;
+  background-size: 100% 1px;
+  transition:
+    background-size 0.2s ease,
+    color 0.25s ease;
+  padding-bottom: 2px;
+}
+.link-underline:hover,
+.link-underline:focus-visible {
+  background-size: 100% 2px;
+}
+
+a.group :where(h3, h4) {
+  text-decoration: underline;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+a.group:hover :where(h3, h4),
+a.group:focus-visible :where(h3, h4) {
+  text-decoration-thickness: 2px;
+}
+
